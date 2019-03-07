@@ -1,7 +1,7 @@
 {
   "name": "nuxt-gcp-ssr-pwa-vuetify",
   "version": "1.0.0",
-  "description": "nuxt-gcp-ssr-pwa-vuetiry plain",
+  "description": "nuxt-gcp-ssr-pwa-vuetify plain",
   "author": "blue_moai",
   "private": true,
   "scripts": {
