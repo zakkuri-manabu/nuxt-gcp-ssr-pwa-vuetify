@@ -1,9 +1,47 @@
 <template>
-  <v-app dark>
+  <v-app
+    :dark="dark"
+  >
+
+    <v-toolbar
+      :clipped-left="clipped"
+      fixed
+      dense
+      app
+    >
+      <v-toolbar-side-icon @click="drawer = !drawer" />
+      <v-toolbar-title v-text="'cheat-sheeter'" />
+      <v-spacer />
+      <v-btn
+        @click.stop="dark = !dark"
+        icon
+      >
+        <v-icon>brightness_3</v-icon>
+      </v-btn>
+      <v-menu offset-y>
+          <template v-slot:activator="{ on }">
+            <v-btn
+              v-on="on"
+              flat
+            >
+              <v-icon>translate</v-icon>
+            </v-btn>
+          </template>
+        <v-list>
+          <v-list-tile
+            v-for="lang in laguages"
+            :key="lang.title"
+            :to="lang.to"
+          >
+            <v-list-tile-title>{{ lang.title }}</v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
+    </v-toolbar>
+
     <v-navigation-drawer
       v-model="drawer"
-      :mini-variant="miniVariant"
-      :clipped="clipped"
+      :clipped=true
       fixed
       app
     >
@@ -24,61 +62,11 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar
-      :clipped-left="clipped"
-      fixed
-      app
-    >
-      <v-toolbar-side-icon @click="drawer = !drawer" />
-      <v-btn
-        @click.stop="miniVariant = !miniVariant"
-        icon
-      >
-        <v-icon>{{ `chevron_${miniVariant ? 'right' : 'left'}` }}</v-icon>
-      </v-btn>
-      <v-btn
-        @click.stop="clipped = !clipped"
-        icon
-      >
-        <v-icon>web</v-icon>
-      </v-btn>
-      <v-btn
-        @click.stop="fixed = !fixed"
-        icon
-      >
-        <v-icon>remove</v-icon>
-      </v-btn>
-      <v-toolbar-title v-text="title" />
-      <v-spacer />
-      <v-btn
-        @click.stop="rightDrawer = !rightDrawer"
-        icon
-      >
-        <v-icon>menu</v-icon>
-      </v-btn>
-    </v-toolbar>
+
     <v-content>
-      <v-container>
-        <nuxt />
-      </v-container>
+      <nuxt />
     </v-content>
-    <v-navigation-drawer
-      v-model="rightDrawer"
-      :right="right"
-      temporary
-      fixed
-    >
-      <v-list>
-        <v-list-tile @click.native="right = !right">
-          <v-list-tile-action>
-            <v-icon light>
-              compare_arrows
-            </v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title>Switch drawer (click me)</v-list-tile-title>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
+
     <v-footer
       :fixed="fixed"
       app
@@ -92,9 +80,8 @@
 export default {
   data() {
     return {
-      clipped: false,
+      dark: false,
       drawer: false,
-      fixed: false,
       items: [
         {
           icon: 'apps',
@@ -107,10 +94,16 @@ export default {
           to: '/inspire'
         }
       ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'Vuetify.js'
+      laguages: [
+        {
+          title: 'English',
+          to: 'en'
+        },
+        {
+          title: '日本語',
+          to: 'ja'
+        }
+      ]
     }
   }
 }

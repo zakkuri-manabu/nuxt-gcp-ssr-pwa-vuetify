@@ -47,6 +47,10 @@ module.exports = {
     '@nuxtjs/axios',
     '@nuxtjs/pwa'
   ],
+  manifest: {
+    name: 'cheat-sheeter',
+    lang: 'en'
+  },
   /*
   ** Axios module configuration
   */

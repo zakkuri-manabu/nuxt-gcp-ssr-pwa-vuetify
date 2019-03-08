@@ -9,75 +9,54 @@
       sm8
       md6
     >
-      <div class="text-xs-center">
-        <logo />
-        <vuetify-logo />
+      <div class="row">
+        <div class="col-8">
+          <h3>Draggable table</h3>
+
+          <table class="table table-striped">
+            <thead class="thead-dark">
+              <draggable v-model="headers" tag="tr">
+                <th v-for="header in headers" :key="header" scope="col">
+                  {{ header }}
+                </th>
+              </draggable>
+            </thead>
+            <tbody>
+              <tr v-for="item in list" :key="item.name">
+                <td v-for="header in headers" :key="header">{{ item[header] }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <rawDisplayer class="col-2" :value="list" title="List" />
+
+        <rawDisplayer class="col-2" :value="headers" title="Headers" />
       </div>
-      <v-card>
-        <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template
-        </v-card-title>
-        <v-card-text>
-          <p>Vuetify is a progressive Material Design component framework for Vue.js. It was designed to empower developers to create amazing applications.</p>
-          <p>
-            For more information on Vuetify, check out the <a
-              href="https://vuetifyjs.com"
-              target="_blank"
-            >documentation</a>.
-          </p>
-          <p>
-            If you have questions, please join the official <a
-              href="https://chat.vuetifyjs.com/"
-              target="_blank"
-              title="chat"
-            >discord</a>.
-          </p>
-          <p>
-            Find a bug? Report it on the github <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              title="contribute"
-            >issue board</a>.
-          </p>
-          <p>Thank you for developing with Vuetify and I look forward to bringing more exciting features in the future.</p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3">
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-          >Nuxt Documentation</a>
-          <br>
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-          >Nuxt GitHub</a>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn
-            color="primary"
-            flat
-            nuxt
-            to="/inspire"
-          >
-            Continue
-          </v-btn>
-        </v-card-actions>
-      </v-card>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
-
+import draggable from "vuedraggable";
 export default {
+  name: "table-column-example",
+  display: "Table Column",
+  order: 8,
   components: {
-    Logo,
-    VuetifyLogo
+    draggable
+  },
+  data() {
+    return {
+      headers: ["id", "name", "sport"],
+      list: [
+        { id: 1, name: "Abby", sport: "basket" },
+        { id: 2, name: "Brooke", sport: "foot" },
+        { id: 3, name: "Courtenay", sport: "volley" },
+        { id: 4, name: "David", sport: "rugby" }
+      ],
+      dragging: false
+    };
   }
-}
+};
 </script>
